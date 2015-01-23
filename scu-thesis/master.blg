@@ -1,0 +1,55 @@
+This is BibTeX, Version 0.99d (TeX Live 2011)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: master.aux
+A level-1 auxiliary file: introduction.aux
+A level-1 auxiliary file: SystemLevelDesign.aux
+The style file: unsrt.bst
+Database file #1: References.bib
+Warning--entry type for "aa1car" isn't style-file defined
+--line 22 of file References.bib
+Warning--entry type for "abcnews" isn't style-file defined
+--line 37 of file References.bib
+Too many commas in name 1 of "Kenzo Nonami, Muljowidodo Kartidjo, Kwang-Joon Yoon, Agus Budiyono" for entry UnmannedAerialAndGround
+while executing---line 944 of file unsrt.bst
+You've used 3 entries,
+            1791 wiz_defined-function locations,
+            461 strings with 3906 characters,
+and the built_in function-call counts, 562 in all, are:
+= -- 44
+> -- 13
+< -- 2
++ -- 6
+- -- 3
+* -- 24
+:= -- 80
+add.period$ -- 7
+call.type$ -- 3
+change.case$ -- 2
+chr.to.int$ -- 0
+cite$ -- 3
+duplicate$ -- 30
+empty$ -- 71
+format.name$ -- 3
+if$ -- 135
+int.to.chr$ -- 0
+int.to.str$ -- 3
+missing$ -- 1
+newline$ -- 16
+num.names$ -- 4
+pop$ -- 20
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 20
+stack$ -- 0
+substring$ -- 20
+swap$ -- 11
+text.length$ -- 2
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 0
+while$ -- 5
+width$ -- 4
+write$ -- 29
+(There was 1 error message)

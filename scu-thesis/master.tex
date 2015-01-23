@@ -1,0 +1,55 @@
+\documentclass{scu-thesis}
+ \usepackage{graphicx}	% for including graphics
+ \usepackage{amsmath}	% for advanced typesetting of mathematics
+ \usepackage{txfonts}	% for using the Times-Roman font
+ \usepackage{natbib}	% for better citation styles
+ \usepackage{hyperref}
+ \usepackage[font=small,format=plain,labelfont=bf,up,textfont=it,up]{caption}%styalize captions
+ \usepackage{cleveref}%references
+\usepackage{paralist}% for compact item
+
+
+% These must be set first ... the rest of the thesis commands rely on them.
+
+\author{Cris Madrigal}
+\author{Jiachi Zhang}
+\author{Nicholas Peacock}
+\author{Brogan O'Hara}
+\title{RSL Autonomous Rover}
+\department{Department of Electrical Engineering}
+\department{Department of Computer Engineering}
+\department{Department of Mechanical Engineering}
+\degree{Bachelor of Science in Electrical Engineering}
+\degree{Bachelor of Science in Computer Science and Engineering}
+\degree{Bachelor of Science in Mechanical Engineering}
+
+
+% Only bachelor's theses should have multiple authors and/or be from
+% multiple departments.  Signatures required:
+%
+% Bachelor's theses: advisor(s), department chair(s)
+% Master's theses: advisor, reader, department chair
+% Doctoral theses: doctoral committee (including advisor), department chair
+
+\begin{document}
+\frontmatter
+\signature{Thesis Advisor}
+\signature{Department Chair}
+\signature{Department Chair}
+\signature{Department Chair}
+
+\maketitle
+%\include{abstract}
+
+\tableofcontents
+\listoffigures
+
+\mainmatter
+\include{introduction}
+\include{SystemLevelDesign}
+
+\backmatter
+\bibliographystyle{unsrt}
+\bibliography{References}
+
+\end{document}
