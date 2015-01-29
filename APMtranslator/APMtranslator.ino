@@ -1,6 +1,5 @@
 int Serial_timeout = 25; //Serial Timout
 
-//serial Strings
 String commandType = "C";
 String commandMode;
 String throttleORsteer;
@@ -15,17 +14,19 @@ void setup(){
   Serial.setTimeout(Serial_timeout);
 }
 
-int mapAPM(analogSpeed){
+int APMconverter(analogSpeed){
   /*
-  *this converts the 0-5V output of the APM to eqivalent joystick-esqu commands
+  *this converts the 0-5V output of the APM to eqivalent serial string commands
   */
+  
+  return map(analogSpeed, 0, 5, -1000, 1000);
 }
 
 int rc_apm_function(){
   /*
   *This function turns the APM output into the serial sgrings the Rover understands
   */
-  int speedFlag = 1;
+  bool speedFlag = true;
   int analogSpeed;
   int desiredSpeed;
   if(true)//this will be act_gear == desiredGear
@@ -34,6 +35,7 @@ int rc_apm_function(){
     {
       command_mode = "A"; //We think we need it in acatuator but are not sure
       analogSpeed = analogRead(speed_pot_pin);
+      desiredSpeed = mapAPM(analogSpeed);
     }
   }
   
