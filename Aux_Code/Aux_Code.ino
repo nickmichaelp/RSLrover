@@ -1,5 +1,6 @@
 int auxA = 22;
 
+
 String stringFromConsole;
 
 void setup() {
