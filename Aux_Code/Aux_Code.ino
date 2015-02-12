@@ -20,6 +20,7 @@ void loop() {
         digitalWrite(auxA, LOW);
       }
     }
+    Serial.println(stringFromConsole);
     Serial2.println(stringFromConsole);
   }
 
