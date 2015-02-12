@@ -10,7 +10,7 @@ void setup() {
 }
 
 void loop() {
-  if(Serial1.available()){
+  if(Serial.available()){
     stringFromConsole = Serial.readStringUntil('\r');
     if(stringFromConsole[0] == 'A'){
       if(stringFromConsole[1] == 'A'){
