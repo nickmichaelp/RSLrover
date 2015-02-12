@@ -1,8 +1,8 @@
 int auxA = 22;
 
-
-
 String stringFromConsole;
+
+const long interval = 500;
 
 void setup() {
   Serial.begin(9600);
@@ -11,8 +11,10 @@ void setup() {
   pinMode(auxA, OUTPUT);
 }
 
+unsigned long previous = 0;
 void loop() {
-  if(Serial.available()){
+  if(Serial1.available()){
+    unsigned long current = millis();
     stringFromConsole = Serial.readStringUntil('\r');
     if(stringFromConsole[0] == 'A'){
       if(stringFromConsole[1] == 'A'){
@@ -22,8 +24,9 @@ void loop() {
         digitalWrite(auxA, LOW);
       }
     }
-    Serial.println(stringFromConsole);
-    Serial2.println(stringFromConsole);
+    if(current - previous < interval) {
+       Serial2.println(stringFromConsole);
+       previous = current;
+    }
   }
-
 }
