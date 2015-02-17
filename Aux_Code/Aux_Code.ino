@@ -28,5 +28,8 @@ void loop() {
        Serial2.println(stringFromConsole);
        previous = current;
     }
+    else{
+       digitalWrite(auxA, LOW);
+    }
   }
 }
