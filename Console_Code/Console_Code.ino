@@ -235,8 +235,10 @@ void aux_switch_read()                                                          
 
 void return_command(String return_string)                                            //Function to parse string coming from vehicle and assign variables based on string
 {
+  //Serial.println('.' + return_string + '.');
   if(return_string.startsWith("F"))                                                //If the string starts with "F" it is a feedback string not an error string
   {
+    //Serial.println("I get the F command");
   comma_index_1 = return_string.indexOf(',');                                        //Records index value of first comma in string for parsing
   comma_index_2 = return_string.indexOf(',', comma_index_1 + 1);                     //Records index value of second comma in string for parsing
   comma_index_3 = return_string.indexOf(',', comma_index_2 + 1);                     //Records index value of third comma in string for parsing
@@ -244,7 +246,7 @@ void return_command(String return_string)                                       
   act_steer = return_string.substring(comma_index_1 + 1, comma_index_2);             //Parses and records value of the current steering position
   act_speed = return_string.substring(comma_index_2 + 1, comma_index_3);             //Parses and records value of the current wheel speed
   act_gear = return_string.substring(comma_index_3 + 1);                             //Parses and records value of the current gear
-  
+  //Serial.println(act_gear);
   }
   
   else if(return_string.startsWith("E"))                                             //If the vehicle is sending the console an error code
@@ -305,9 +307,10 @@ void serial_interface_function()                                                
     }
     if(gear_string_to_send != "Clear")                                               //Checks to make sure that the gear change string only gets sent once (sets equal to "Clear" later in the code after it has been sent)
     {
-      Serial.println(gear_string_to_send);
+      //Serial.println(gear_string_to_send);
       Serial1.println(gear_string_to_send);                                          //Send gear_string_to_send to vehicle via drive by wire
       Serial2.println(gear_string_to_send);                                          //Send gear_string_to_send to vehicle via x-bees
+       //Serial.println(gear_string_to_send);
       digitalWrite(ind_H, LOW);                                                      //turns off all gear indicator LEDs that may have been on
       digitalWrite(ind_L, LOW);
       digitalWrite(ind_N, LOW);
@@ -332,16 +335,18 @@ void serial_interface_function()                                                
     
     if (counter == 1)                                                                //Used to alternate between sending steering and speed commands (sends the steering command on the first iteration and speed related command on the second)
     {
-      Serial.println(steering_string_to_send);
+      //Serial.println(steering_string_to_send);
       Serial1.println(steering_string_to_send);                                      //Send steering command over drive by wire
-      Serial2.println(steering_string_to_send);                                      //Send steering command over x-bees
+      Serial2.println(steering_string_to_send); 
+      //Serial.println(steering_string_to_send);      //Send steering command over x-bees
     }
     
     else if (counter >= 2)                                                           //Used to alternate between sending steering and speed commands (sends the steering command on the first iteration and speed related command on the second)
     {
-      Serial.println(speed_string_to_send);
+      //Serial.println(speed_string_to_send);
       Serial1.println(speed_string_to_send);                                         //Send speed related command over drive by wire
       Serial2.println(speed_string_to_send);                                         //Send speed related command over x-bees
+      //Serial.println(speed_string_to_send);
       counter = 0;                                                                   //Reset counter
     }
       
@@ -374,10 +379,13 @@ void rc_dbw_function()                                                          
   else
   {desired_gear=previous_desired_gear;}                                            //If no gear pushbuttons are pressed, this sets the desired_gear=previous_desired_gear                                              
   
+  //Serial.println(desired_gear);
+  
   if(desired_gear != previous_desired_gear)                                         //Checks to make sure the new desired gear is not equal to the previously desired gear
   {
     for (int flash=ind_H; flash<=ind_P; flash++)                                    //Flash sequence during gear change
     {digitalWrite(flash, LOW);}
+    //Serial.println("d != p");
   }
   previous_desired_gear=desired_gear;                                               //Sets previous_desired_gear=desired_gear
   
@@ -387,6 +395,7 @@ void rc_dbw_function()                                                          
     gear_string_to_send = command_type + comma + command_mode + comma + desired_gear; //Formulates the gear change command to send to the vehicle
     Serial1.println(gear_string_to_send);                                             //Sends the gear change command to the vehicle via drive by wire
     Serial2.println(gear_string_to_send);                                             //Sends the gear change command to the vehicle via x-bee
+    //Serial.println(gear_string_to_send);
     
     stop_time=millis();                                                               //Assigns the stop time used to calculate the elapsed time which enforces the flash rate
     elapsed_time=stop_time-start_time;                                                //Calcualtes the elapsed time used to enforces the flash rate
@@ -472,10 +481,12 @@ void loop()                                                                     
   if(digitalRead(serial_dbw_rc)==HIGH)                                                 //If the vehicle is in serial mode, call the serial_interface_function
   {
    serial_interface_function();
+   //Serial.println("Serial");
   }
   
   else                                                                                 //If the vehicle is in drive by wire or remote control mode, call the rc_dbw_function
   {
+     //Serial.println("dbw");
     rc_dbw_function();
     
   }
