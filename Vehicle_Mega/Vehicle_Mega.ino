@@ -455,18 +455,21 @@ void loop()                                                                     
   
   if(mc_state == "Ready")                                                                        //Ensuring that the motor controller is not executing its startup procedure
   {
-    
-    if(consol_input_string.charAt(1)=='C' || consol_input_string.startsWith("C"))                                                      //If the consol_input_string is a command, call control_command function
-    {
-      if(selfDrive){
-        //digitalWrite(48,HIGH);
-        //Serial.println("2");
+    if(selfDrive){
+      if(selfDrive_string.charAt(1)=='C' || selfDrive_string.startsWith("C")){
+        //Serial.println("COMMAND");
         control_command(selfDrive_string);
       }
-      else{
-        control_command(consol_input_string);
+      else if(selfDrive_string != "" && selfDrive_string != "\n"){
+        //Serial.println("Estop");
+        e_stop_state = HIGH;
       }
     }
+    else{
+      if(consol_input_string.charAt(1)=='C' || consol_input_string.startsWith("C"))                                                      //If the consol_input_string is a command, call control_command function
+      {
+          control_command(consol_input_string);
+      }
     
    /* else if(consol_input_string.startsWith("C"))                                                //These should both be identical if statements but this one is needed when the serial interface is used (Serial interface will not get through without this)
     {
@@ -483,6 +486,7 @@ void loop()                                                                     
       aux_switch_parse();
     }
     */
+    }
   }
   
   
