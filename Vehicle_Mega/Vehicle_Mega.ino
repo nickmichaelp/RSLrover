@@ -6,10 +6,8 @@
 //Serial3: To Speed Controller
 //mySerial: AutoPilot
 
-#include <SoftwareSerial.h>
-int rxPin = 10;
-int txPin = 11;
-SoftwareSerial mySerial = SoftwareSerial(rxPin,txPin); //RX, TX
+#include <AltSoftSerial.h>
+AltSoftSerial mySerial; //RX:48, TX:46
 
 //Strings (for more info see string initializations in setup)
 String consol_input_string;
@@ -125,10 +123,9 @@ void setup()                                                      //Runs before 
   Serial2.setTimeout(Serial_timout);                              //If the serial buffer misses the '\r' character, it will read a really long string.  Setting the timeout ensures that if the controller recieves a long garbage string, it will not waste time reading it
   Serial3.begin(9600);                                            //Serial to/from Speed Controller (sets baud rate and opens serial port)
   Serial3.setTimeout(Serial_timout);                              //If the serial buffer misses the '\r' character, it will read a really long string.  Setting the timeout ensures that if the controller recieves a long garbage string, it will not waste time reading it
-  pinMode(rxPin, INPUT);
-  pinMode(txPin, OUTPUT);           // define pin modes for tx, rx:
-  mySerial.begin(9600);
+  mySerial.begin(2400);
   mySerial.setTimeout(Serial_timout);
+  //pinMode(48, OUTPUT);
   
   pinMode(temp_warning, INPUT);                                   //Sets the temp_warning pin as an input (HIGH or LOW)
   pinMode(reverse, INPUT);                                        //Sets the reverse gear pin as an input (HIGH or LOW)
@@ -430,11 +427,12 @@ void loop()                                                                     
   e_stop_time_1 = millis();                                                                     //Record emergency stop start time (if contact with console is lost, the start time will stop updating itself)
   consol_input_string = Serial1.readStringUntil('\r');                                          //Read consol_input_string
   }
-  //if(mySerial.available())
+ //Serial.println(mySerial.available());
+ if(mySerial.available())
   {
-    //Serial.println("FuckThis");
      selfDrive_string = mySerial.readStringUntil('\r');
-     Serial.println("FUCK!!!!!");
+     //Serial.println(selfDrive_string);
+     //Serial.println("New LINE");
   }
   
   e_stop_time_2 = millis();                                                                     //Record emergency stop end time                   
@@ -455,12 +453,14 @@ void loop()                                                                     
      digitalWrite(e_stop_relay_pin, HIGH);
   }
   
-  if(mc_state == "Ready")                                                                       //Ensuring that the motor controller is not executing its startup procedure
+  if(mc_state == "Ready")                                                                        //Ensuring that the motor controller is not executing its startup procedure
   {
+    
     if(consol_input_string.charAt(1)=='C' || consol_input_string.startsWith("C"))                                                      //If the consol_input_string is a command, call control_command function
     {
       if(selfDrive){
-        Serial.println(selfDrive_string);
+        //digitalWrite(48,HIGH);
+        //Serial.println("2");
         control_command(selfDrive_string);
       }
       else{

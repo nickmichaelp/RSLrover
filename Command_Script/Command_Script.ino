@@ -6,14 +6,18 @@ void sendCommand(String command)
 	}
 	Serial.println("Done");
 }
+
 void setup()
 {
-	Serial.begin(9600);
-	//sendCommand("C,A,W,500");
-	//sendCommand("C,A,W,-500");
+	Serial.begin(2400);
+        Serial1.begin(2400);
+	sendCommand("C,A,W,500");
 	sendCommand("C,G,L");
 	Serial.println("Finished");
+
 }
+
+
 
 void loop()
 {
